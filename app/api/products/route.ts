@@ -14,10 +14,12 @@ export async function GET() {
       products,
     });
   } catch (error) {
+    console.error("Products API Error:", error);
+
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to fetch products",
+        message: error instanceof Error ? error.message : "Unknown error",
       },
       { status: 500 }
     );
@@ -121,11 +123,12 @@ export async function DELETE(request: Request) {
       message: "Product deleted successfully!",
     });
   } catch (error) {
+    console.error("Products API Error:", error);
+
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to delete product",
-        error: error instanceof Error ? error.message : "Unknown error",
+        message: error instanceof Error ? error.message : "Unknown error",
       },
       { status: 500 }
     );
